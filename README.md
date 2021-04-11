@@ -20,7 +20,7 @@ int main (void)
         char pass[8]; //Password capacity 8 chars long
         int character; //Menu option
         char storageList[1000];
-        char addItem, deleItem, editItem, viewList;
+        char addItem, deleItem, editItem, viewList, addGuest, deleGuest;
         int quit = 0;
     
     printf("\n\n\t--------------------------\n");
@@ -48,6 +48,9 @@ int main (void)
             printf("\t 2 to DELETE items  \n"); //Delete items
             printf("\t 3 to EDIT items \n"); //Edit items
             printf("\t 4 to VIEW BORROW REQUESTS \n"); //Borrow Requests
+            printf("\t 5 to CHANGE ADMIN USERNAME AND PASSWORD \n"); //Change admin username and password
+            printf("\t 6 to ADD GUEST ACCOUNT \n"); //Add guest account
+            printf("\t 7 to DELETE GUEST ACCOUNT \n"); //Delete guest account
             printf("Press q to exit: \n");
             scanf("%d", &character);
             
@@ -112,6 +115,43 @@ int main (void)
             {
                 return 0;
             }
+            
+    //CHANGING ADMIN USERNAME AND PASSWORD
+                if(character == 5)
+                {
+
+                    printf("Please enter the new admin username: \n");
+                    scanf("%s");
+                    printf("Please enter the new admin password: \n");
+                    scanf("%s");
+                }
+                
+    //ADDING NEW GUEST ACCOUNT
+                if(character == 6)
+                {
+                    for(int i=0; i <= sizeof(loginguest); i++)
+                    {
+                        printf("Please enter a new guest username: \n");
+                        scanf("%s", &addGuest);
+                        printf("Please enter a password for this account: \n");
+                        scanf("%s", &addGuest);
+
+                        loginguest[i] = addGuest;
+                    }
+                }
+                
+   //DELETING GUEST ACCOUNT
+                if(character == 7)
+                {
+                    for(int i=0; i <= sizeof(loginguest); i++)
+                    {
+                        printf("%c", loginguest);
+                        printf("Please enter the guest account you want to delete: \n");
+                        scanf("%s", &deleGuest);
+                    }
+                }                     
+
+                
         }
     }
  
