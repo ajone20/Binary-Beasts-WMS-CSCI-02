@@ -167,15 +167,21 @@ int main (void)
         
         
     //GUEST MENU
+    
         if(loginguest(user, pass)== 0)
     {
         //guest stuff
         while (true)
         {
-            printf("press 1 to do blank (ex. save a list of favorite item)\n");
-            printf("press 2 to do blank (ex. request borrowed/bought items)\n");
+            printf("Guest Menu \n_________________________\n");
+            printf("Please eneter the corresponding number for your desired task. \n"); //Add items
+           
+            printf("Enter: 1 to ADD items \n"); //Add items
+            printf("\t 2 to DELETE items  \n"); //Delete items
+            printf("\t 3 to EDIT items \n"); //Edit items
+            printf("\t 4 to VIEW BORROW REQUESTS \n"); //Borrow Requests
             printf("Press q to exit: \n");
-            scanf("%c", &character);
+            scanf("%d", &character);
             
             if (character == 'q')
             {
@@ -186,6 +192,74 @@ int main (void)
     printf("Username was invalid\n");
     return 0;
 }
+
+ //ADD ITEMS
+     while(quit == 0)
+     {
+         
+    if(character == 1)
+    {
+        for(int i = 0; i <= sizeof(storageList); i++)
+        {
+            
+            printf("Please enter the name of the item you would like to add to the warehouse \n\tEnter 1 at anytime to quit."); //Add item name
+            scanf("%c", &addItem);
+            
+            storageList[i] = addItem;
+        }
+    }
+            
+  
+ //DELETE ITEMS
+         if(character == 2)
+         {
+             for(int i = 0; i <= sizeof(storageList); i++)
+             {
+             printf("%c", storageList[i]); //Print Arraylist (List of items in warehouse)
+                 
+                 printf("Please eneter the item you would like to delete"); //Delete item input
+                 scanf("%c", &deleItem);
+                // storageList.remove(i);
+             }
+         }
+             
+             
+            
+  //EDIT ITEMS
+            if(character == 3)
+            {
+                for(int i = 0; i <= sizeof(storageList); i++)
+                {
+                    printf("%c", storageList[i]); //Print Arraylist (List of items in warehouse)
+                    printf("Please enter the name of the item you would like to EDIT in the warehouse  \n\tEnter 1 at anytime to quit."); //edit item name
+                    scanf("%c", &editItem);
+                }
+            }
+            
+        
+   //VIEW BORROW REQUESTS
+            if(character == 4)
+            {
+                for(int i = 0; i <= sizeof(storageList); i++)
+                {
+                    printf("%c", storageList[i]); //Print Arraylist (List of items in warehouse)
+                    
+                    printf("Please enter the name of the item you would like to EDIT in the warehouse \n\tEnter 1 at anytime to quit."); //edit item name
+                    scanf("%c", &viewList);
+                }
+            }
+            
+            if (character =='q')
+            {
+                return 0;
+            }
+
+
+
+
+
+
+
 
 
 
