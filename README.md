@@ -336,4 +336,73 @@ int loginguest(char username[],char password[])
     }
     return -1;
 }
+//BORROW REQUEST
+static void requestToBorrowWItem() {
+    int i, j, itemid, match, days;
+	char stritemid[MAXITEMLENGTH], time[MAXIDLENGTH];
+  
+    printf("\n");
+    printf("\n");
+    printf("********************************************\n");
+    printf("***  Request to Borrow a Warehouse Item  ***\n");  
+    printf("********************************************\n"); 
+    printf("\n"); 
+    
+	// Get Item ID
+	
+    printf("\nEnter ITEM ID Number:");
+	fflush(stdin);
+	fgets(stritemid, MAXITEMLENGTH, stdin);
+	stritemid[strlen(stritemid) - 1] = '\0';  // remove the line break character
+	itemid = atoi(stritemid);                 // convert string to integer
+
+	// Get number of days
+
+	printf("\nFor how many DAYS?: ");
+	fflush(stdin);
+	fgets(time, MAXIDLENGTH, stdin);
+	time[strlen(time) - 1] = '\0';  // remove the line break character
+	days = atoi(time);                 // convert string to integer
+
+	
+	// Make sure ITEM ID is valid
+	
+	match = 0;
+	for (i=1; (i <= NumItems); i++) {
+		if (warehouse[i].itemid == itemid) {
+		  match = 1;
+		  break;
+	    }
+	}
+    if (match == 0) {
+	  printf("Error - ITEM ID is invalid\n");
+	}
+	// Make sure guest user has not reached the request limit
+	else {
+		for (i=1; (i <= NumUsers); i++) {
+			if (user[i].id == CurrentUserID) {
+				if (user[i].nbrequested >= MAXREQUESTS) {
+					printf("Error - User has reached the maximum number of loan requests\n");
+				}
+				// assign borrow request
+				else {
+					user[i].nbrequested = user[i].nbrequested + 1;
+					user[i].booksrequested[user[i].nbrequested] = itemid;
+					NumRequests = NumRequests + 1;
+					LastRequestID = LastRequestID + 1;
+					user[i].reqid[user[i].nbrequested] = LastRequestID;
+					requestlist[NumRequests].id = LastRequestID;
+					requestlist[NumRequests].userid = CurrentUserID;
+					requestlist[NumRequests].itemid = itemid;
+					for (j = 1; (j <= NumRequests); j++) {
+						//requestlist[user[i].reqid[j]].time = days;
+					}
+					printf("Borrow request for %d days successfully submitted. Total Requests = %d Last Request ID = %d", days, NumRequests, LastRequestID);
+				}
+				break;
+			}
+		}
+	}
+}
+
  
