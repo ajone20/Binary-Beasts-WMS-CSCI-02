@@ -403,6 +403,108 @@ static void requestToBorrowWItem() {
 			}
 		}
 	}
+	
+//SEARCH WAREHOUSE
+static void searchForWarehouseItem() {
+	int i, error, option, itemid, match;
+	char stroption[MAXITEMLENGTH], stritemid[MAXITEMLENGTH], name[MAXITEMLENGTH], producer[MAXITEMLENGTH];
+	
+	error = 0;
+
+    printf("*****************************************************************************\n");
+    printf("*                                                                           *\n");
+    printf("*                        Search for Warehouse Items                         *\n");
+    printf("*                                                                           *\n");
+    printf("*                               Options                                     *\n");
+    printf("*                                                                           *\n");
+    printf("*           1 - Search by ITEM ID                                           *\n");
+    printf("*           2 - Search by NAME                                              *\n");
+    printf("*           3 - Search by PRODUCER                                          *\n");
+    printf("*                                                                           *\n");
+    printf("*           0 - Exit                                                        *\n");
+	printf("*                                                                           *\n");
+    printf("*****************************************************************************\n");
+	
+	// Get search option
+	
+	printf("\nEnter Search Option (0-3): ");
+	fflush(stdin);
+	fgets(stroption, MAXITEMLENGTH, stdin);
+	stroption[strlen(stroption) - 1] = '\0'; // remove the line break character
+	option = atoi(stroption);                // convert string to integer
+	
+	if (option < 0 || option > 6) {
+	   printf("Error - invalid Search Option entered\n");
+	}
+	else {
+	    
+	// Lookup and display items in warehouse using search criteria
+	
+      switch (option) {
+		  
+	    case 0:
+	    error = 1;
+        break;
+		
+        case 1: // search by ITEM ID
+	    printf("\nEnter ITEM ID: ");
+	    fflush(stdin);
+        fgets(stritemid, MAXITEMLENGTH, stdin);
+	    stritemid[strlen(stritemid) - 1] = '\0';    // remove the line break character
+	    itemid = atoi(stritemid);                   // convert string to integer
+        match = 0;
+        for (i=1; (i <= NumItems); i++) {
+          if (warehouse[i].itemid == itemid) {
+		    match = 1;
+			printf("ID                     NAME               PRODUCER                  QTY     PRICE\n");
+		    printf("\n%-5i     %-20.20s %-20.20s %-20.20s %-10.10s  %-15.15s  %-5i   %-5i   $%9.2f", warehouse[i].itemid, warehouse[i].name, warehouse[i].producer, warehouse[i].qty, warehouse[i].price);
+			break;
+		  }
+		}
+	    if (match == 0) {
+		  printf("\n Error - no warehouse item matching the search criteria was found\n");
+	    }
+        break;
+	
+	    case 2:  // search by NAME
+        printf("\nEnter NAME: ");
+	    fflush(stdin);
+        fgets(name, MAXITEMLENGTH, stdin);
+	    name[strlen(name) - 1] = '\0';            // remove the line break character
+        match = 0;
+        for (i=1; (i <= NumItems); i++) {
+          if (strcmp(warehouse[i].name, name) == 0) {
+		    match = match + 1;
+			if (match == 1){
+			  printf("ID        NAME                PRODUCER           QTY     PRICE\n");
+			}
+		    printf("\n%-5i     %-20.20s %-20.20s %-20.20s %-10.10s  %-15.15s  %-5i   %-5i   $%9.2f", warehouse[i].itemid, warehouse[i].name, warehouse[i].producer, warehouse[i].qty, warehouse[i].price);
+		  }
+		}
+	    if (match == 0) {
+		  printf("\n Error - no warehouse item matching the search criteria was found\n");
+	    }
+        break;
+		
+		case 3:  // search by PRODUCER
+        printf("\nEnter PRODUCER: ");
+	    fflush(stdin);
+        fgets(producer, MAXITEMLENGTH, stdin);
+	    producer[strlen(producer) - 1] = '\0';            // remove the line break character
+        match = 0;
+        for (i=1; (i <= NumItems); i++) {
+          if (strcmp(warehouse[i].producer, producer) == 0) {
+		    match = match + 1;
+			if (match == 1){
+			  printf("ID        NAME                PRODUCER               QTY     PRICE\n");
+			}
+		printf("\n%-5i     %-20.20s %-20.20s %-20.20s %-10.10s  %-15.15s  %-5i   %-5i   $%9.2f", warehouse[i].itemid, warehouse[i].name, warehouse[i].producer, warehouse[i].qty, warehouse[i].price);
+		  }
+		}
+	    if (match == 0) {
+		  printf("\n Error - no warehouse item matching the search criteria was found\n");
+	    }
+        break;
 }
 
  
